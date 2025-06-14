@@ -1,6 +1,8 @@
 package com.bookmanager.rest.service.author;
 
 import com.bookmanager.rest.entity.Author;
+import com.bookmanager.rest.exceptions.AlreadyExistsException;
+import com.bookmanager.rest.exceptions.NotFoundException;
 import com.bookmanager.rest.repository.AuthorRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ public class AuthorService implements IAuthorService {
     public void addAuthor(Author author) {
         repo.findById(author.getId())
                 .ifPresentOrElse(
-                        a ->{throw new RuntimeException("already exists");}
+                        a ->{throw new AlreadyExistsException("author is already exists");}
                         ,()->repo.save(author)
     );
     }
@@ -27,13 +29,13 @@ public class AuthorService implements IAuthorService {
         repo.findById(id)
                 .ifPresentOrElse(
                         author -> repo.deleteById(id)
-                        ,()->{throw new RuntimeException("not exists");}
+                        ,()->{throw new NotFoundException("author is not found");}
                 );
     }
 
     @Override
     public Author getAuthorById(long id) {
-        return repo.findById(id).orElseThrow(() -> new RuntimeException("not exists"));
+        return repo.findById(id).orElseThrow(() -> new NotFoundException("author is not found"));
     }
 
     @Override
