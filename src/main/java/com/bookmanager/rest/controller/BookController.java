@@ -72,12 +72,15 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/genre/{genre}")
-    public ResponseEntity<List<Book>> getBooksByGenre(@RequestParam String genre){
+    @GetMapping("/genre/{name}")
+    public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable String name){
         try{
-            Genre genre = genreService.g
+            Genre genre = genreService.getGenreByName(name);
+            List<Book> books = bookService.getBookByGenre(genre);
+            return ResponseEntity.ok(books);
+        }catch(NotFoundException e){
+            return ResponseEntity.notFound().build();
         }
     }
-
 
 }
