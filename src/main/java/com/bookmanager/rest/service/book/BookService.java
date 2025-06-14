@@ -18,11 +18,11 @@ public class BookService implements  IBookService {
     private final BookRepository repo;
     @Override
     public void addBook(Book book) {
-        repo.findById(book.getId())
-                .ifPresentOrElse(
-                        a ->{throw new AlreadyExistsException("book is already exists");}
-                        ,()->repo.save(book)
-                );
+        Book b = repo.findByTitle(book.getTitle());
+        if(b!=null){
+            throw new AlreadyExistsException(book.getTitle());
+        }
+        repo.save(book);
     }
 
     @Override

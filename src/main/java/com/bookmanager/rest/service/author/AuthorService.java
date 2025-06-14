@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,12 +18,13 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public void addAuthor(Author author) {
-        repo.findById(author.getId())
-                .ifPresentOrElse(
-                        a ->{throw new AlreadyExistsException("author is already exists");}
-                        ,()->repo.save(author)
-    );
+        Author a = repo.findByName(author.getName());
+        if (a != null) {
+            throw new AlreadyExistsException("Author already exists");
+        }
+        repo.save(author);
     }
+
 
     @Override
     public void deleteAuthor(long id) {

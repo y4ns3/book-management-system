@@ -12,15 +12,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GenreService implements IGenreService{
-    private GenreRepository repo;
+    private final GenreRepository repo;
     
     @Override
     public void addGenre(Genre genre) {
-        repo.findById(genre.getId())
-                .ifPresentOrElse(
-                        a ->{throw new AlreadyExistsException("genre is already exists");}
-                        ,()->repo.save(genre));
-
+        Genre g  = repo.findByName(genre.getName());
+        if (g != null) {
+            throw new AlreadyExistsException("genre already exists");
+        }
+        repo.save(genre);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class GenreService implements IGenreService{
 
     @Override
     public Genre getGenreByName(String name) {
-        return repo.getByName(name);
+        return repo.findByName(name);
     }
 }
