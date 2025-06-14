@@ -33,7 +33,7 @@ public class GenreService implements IGenreService{
 
     @Override
     public Genre getGenreById(long id) {
-        return repo.findById(id).orElseThrow(()->new RuntimeException("genre is not found"));
+        return repo.findById(id).orElseThrow(()->new NotFoundException("genre is not found"));
     }
 
     @Override
