@@ -9,4 +9,5 @@ public interface IGenreService {
     void deleteGenre(long id);
     Genre getGenreById(long id);
     List<Genre> getAllGenre();
+    Genre getGenreByName(String name);
 }

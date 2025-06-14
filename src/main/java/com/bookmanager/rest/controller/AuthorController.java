@@ -34,7 +34,7 @@ public class AuthorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Author> getAuthorById(@PathVariable long id){
         try{
             Author author = authorService.getAuthorById(id);

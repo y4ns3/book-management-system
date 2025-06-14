@@ -40,4 +40,9 @@ public class GenreService implements IGenreService{
     public List<Genre> getAllGenre() {
         return repo.findAll();
     }
+
+    @Override
+    public Genre getGenreByName(String name) {
+        return repo.getByName(name);
+    }
 }
