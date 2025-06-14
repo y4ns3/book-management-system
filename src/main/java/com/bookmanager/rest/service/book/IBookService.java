@@ -13,4 +13,5 @@ public interface IBookService {
     Book getBookByTitle(String title);
     List<Book> getBookByGenre(Genre genre);
     List<Book> getBookByAuthor(Author author);
+    List<Book> getAllBooks();
 }

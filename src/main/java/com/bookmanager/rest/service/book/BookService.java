@@ -52,5 +52,9 @@ public class BookService implements  IBookService {
     public List<Book> getBookByAuthor(Author author) {
         return repo.findByAuthor(author);
     }
+    @Override
+    public List<Book> getAllBooks() {
+        return repo.findAll();
+    }
 
 }
